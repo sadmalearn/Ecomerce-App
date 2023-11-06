@@ -14,6 +14,7 @@ app.use(bodyParser.json())
 
 app.use('/api',require('./Routers/productRouters'))
 app.use('/api',require('./Routers/userRoutes'))
+app.use('/api',require('./Routers/EmailRouters'))
 
 app.listen(3000,()=>{
     console.log('app is listening on port no. 3000 ');
