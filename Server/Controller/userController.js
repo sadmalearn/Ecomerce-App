@@ -45,8 +45,8 @@ const registerUser = async (req, res) => {
     }
 }
 const login = async (req, res) => {
-    const isUserRegistered = await userCollection.findOne({ email: req.body.email })
-    const user = await userCollection.findOne({ email: req.body.email });
+    const isUserRegistered = await userCollection.findOne({ userName: req.body.userName })
+    const user = await userCollection.findOne({ userName: req.body.userName });
 
     // if user registered or not
     if (isUserRegistered != null) {
