@@ -24,6 +24,15 @@ const userSchema = mongoose.Schema({
     role : {
         type : String,
         required:true
+    },
+    OTP : {
+        type : String
+    },
+    otpExpiresAt : {
+        type : Date
+    },
+    otpCreateds : {
+        type : Date
     }
 })
 
