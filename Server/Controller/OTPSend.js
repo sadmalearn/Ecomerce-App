@@ -3,7 +3,8 @@ const generateOtp = require('../Util/generateOtp')
 const sendEmail = require('../Util/sendEmail')
 const hashData = require('../Util/hashData');
 const otpSchema = require('../Models/otpSchema');
-const {addOTPToUser} = require('../Util/addOtpToUserSchema')
+const {addOTPToUser} = require('../Util/addOtpToUserSchema');
+const userSchema = require('../Models/userSchema');
 const sendOTP = async (req, res) =>{
     console.log("req hittt",req);
     const email = req.body.email;
@@ -43,8 +44,8 @@ const sendOTP = async (req, res) =>{
                 createdAt : Date.now(),
                 expiresAt : Date.now() + 180000 * +duration 
             })
-            console.log(email);
-            await addOTPToUser(email,generatedOtp)
+            const addotp = await addOTPToUser(email,generatedOtp)
+            res.send({message : 'done', data: addotp})
             const createdOTPRecord = await newOTP.save();
             return createdOTPRecord
             // res.send({message : 'otpsend', data : createdOTPRecord}) 
@@ -54,5 +55,29 @@ const sendOTP = async (req, res) =>{
         console.log('>>>>>>>>>>>error :-', error)
     }
 }
-
-module.exports = {sendOTP}
+const verifyOTP = async (req,res) => {
+    try {
+      // Find the user by email
+      const user = await userSchema.findOne({ email : req.body.email });
+    if(user){
+        
+      if (user && user.OTP === req.body.otp) {
+        // Check if the OTP has expired
+        if (user.otpExpiresAt > new Date()) {
+          res.send({message : 'OTP is valid;'}) 
+        } else {
+          res.send({message : 'OTP has expired;'}) 
+        //   return 'OTP has expired';
+        }
+      } else {
+        return 'Invalid OTP';
+      } 
+    }else{
+        res.send({message : 'User Not Found'}) 
+    }
+    } catch (error) {
+      console.error('Error verifying OTP:', error);
+      return 'Error verifying OTP';
+    }
+  };
+module.exports = {sendOTP,verifyOTP}

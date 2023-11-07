@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router();
 const {sendOTP} = require('../Controller/OTPSend');
-const { verifyOTP } = require('../Util/addOtpToUserSchema');
+const { verifyOTP } = require('../Controller/OTPSend');
 
 // router.post('/', async(req,res)=>{
 //     try {
