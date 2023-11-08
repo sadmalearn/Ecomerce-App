@@ -11,8 +11,7 @@ const addOTPToUser = async (email,otp) => {
         user.otpExpiresAt = expirationTime;
         user.OTP = otp;
         await user.save();
-  
-        return `OTP added to user with email: ${email}`;
+        return `OTP Send Succefully on : ${email}`;
       } else {
         return 'User not found';
       }

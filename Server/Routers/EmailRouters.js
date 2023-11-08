@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router();
-const {sendOTP} = require('../Controller/OTPSend');
-const { verifyOTP } = require('../Controller/OTPSend');
+const {sendOTP, verifyOTP,forgotPassword} = require('../Controller/MailSend/OTPSend');
+// const { verifyOTP } = require('../Controller/MailSend/OTPSend');
 
 // router.post('/', async(req,res)=>{
 //     try {
@@ -16,5 +16,6 @@ const { verifyOTP } = require('../Controller/OTPSend');
 
 router.post('/sendOTP',sendOTP)
 router.post('/verifyOTP',verifyOTP)
+router.post('/forgotPassword',forgotPassword)
 
 module.exports = router
