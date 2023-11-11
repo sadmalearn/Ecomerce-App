@@ -23,7 +23,7 @@ const registerUser = async (req, res) => {
 
     console.log('Is User Registered:', isUserRegistered);
     if (isUserRegistered != null) {
-        return res.status(409).send({ message: 'user has already been regestered with this mail', success: false })
+        return res.status(208).send({ message: 'user has already been regestered with this mail', success: false })
     }
     async function getHashedPass(password) {
         return await bcrypt.hash(password, 10);
@@ -36,6 +36,7 @@ const registerUser = async (req, res) => {
     try {
         await newUser.save();
         res.send({
+            status :200,
             message: 'user Registered Sucessfully',
             success: true,
         })
@@ -57,11 +58,11 @@ const login = async (req, res) => {
             res.send({ status: 200, success: true, message: 'Logged In Sucessfully' });
         }
         else {
-            res.send({ status: 500, success: false, message: "Invalid Username or password" })
+            res.send({ status: 401, success: false, message: "Invalid Username or password" })
         }
     }
     else {
-        res.send({ success: false, message: "User Not Found" });
+        res.send({status: 404, success: false, message: "User Not Found" });
     }
 }
 

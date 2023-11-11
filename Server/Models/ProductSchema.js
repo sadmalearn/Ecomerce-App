@@ -9,6 +9,14 @@ const productSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    productType: {
+        type: String,
+        required: true
+    },
+    productSubType: {
+        type: String,
+        required: true
+    },
     productDesc: {
         type: String,
         required: true

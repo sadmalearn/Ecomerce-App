@@ -8,13 +8,13 @@ const welcome = async(req,res) =>{
 
 
 const createProduct = async(req, res) =>{
-    const {productCode, productName, productDesc, price, sizes, color, quantity, brandName, discount} = req.body
+    const {productCode, productName, productDesc,productType,productSubType, price, sizes, color, quantity, brandName, discount} = req.body
     const isProductAvailable = await productCollection.findOne({ productCode })
     if(isProductAvailable){
-        res.send({ message: 'Product already available' })
+        res.send({status: 208, message: 'Product already available' })
     }else{
         const productCreate = await productCollection.create({
-            productCode, productName, productDesc, price, sizes, color, quantity, brandName, discount
+            productCode, productName, productDesc,productType,productSubType, price, sizes, color, quantity, brandName, discount
         })
         if (productCreate) {
             res.send({ status: 200, success: true, message: 'Product Added Succesfully !' })
@@ -59,11 +59,11 @@ const getProductById = async (req, res) =>{
 
 
 const updateProductDetails = async (req, res) =>{
-    const {productCode, productName, productDesc, price, sizes, color, quantity, brandName, discount} = req.body
+    const {productCode, productName, productDesc,productType,productSubType, price, sizes, color, quantity, brandName, discount} = req.body
     const { id } = req.params;
     const updateProduct = await productCollection.findByIdAndUpdate(
         id,
-        {productCode, productName, productDesc, price, sizes, color, quantity, brandName, discount},
+        {productCode, productName, productDesc,productType,productSubType, price, sizes, color, quantity, brandName, discount},
         { new: true }
     );
     if (updateProduct) {
